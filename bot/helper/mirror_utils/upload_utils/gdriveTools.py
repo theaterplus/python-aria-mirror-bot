@@ -2,10 +2,11 @@ import os
 import pickle
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
-import httplib2
+
 import re
 import json
 import requests
+import logging
 
 from google.auth.transport.requests import Request
 from google.oauth2 import service_account
@@ -14,10 +15,9 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 from tenacity import *
-from oauth2client.client import OAuth2Credentials
 
 from bot import parent_id, DOWNLOAD_DIR, IS_TEAM_DRIVE, INDEX_URL, \
-    USE_SERVICE_ACCOUNTS,CRED_JSON
+    USE_SERVICE_ACCOUNTS, download_dict
 from bot.helper.ext_utils.bot_utils import *
 from bot.helper.ext_utils.fs_utils import get_mime_type
 
@@ -28,6 +28,7 @@ SERVICE_ACCOUNT_INDEX = 0
 
 class GoogleDriveHelper:
     def __init__(self, name=None, listener=None):
+        self.__G_DRIVE_TOKEN_FILE = "token.pickle"
         # Check https://developers.google.com/drive/scopes for all available scopes
         self.__OAUTH_SCOPE = ['https://www.googleapis.com/auth/drive']
         # Redirect URI for installed apps, can be left as is
@@ -167,7 +168,7 @@ class GoogleDriveHelper:
                         if USE_SERVICE_ACCOUNTS:
                             self.switchServiceAccount()
                             LOGGER.info(f"Got: {reason}, Trying Again.")
-                            self.upload_file(file_path, file_name, mime_type, parent_id)
+                            return self.upload_file(file_path, file_name, mime_type, parent_id)
                     else:
                         raise err
         self._file_uploaded_bytes = 0
@@ -247,9 +248,36 @@ class GoogleDriveHelper:
                     if USE_SERVICE_ACCOUNTS:
                         self.switchServiceAccount()
                         LOGGER.info(f"Got: {reason}, Trying Again.")
-                        self.copyFile(file_id,dest_id)
+                        return self.copyFile(file_id,dest_id)
                 else:
                     raise err
+
+    @retry(wait=wait_exponential(multiplier=2, min=3, max=6), stop=stop_after_attempt(5),
+           retry=retry_if_exception_type(HttpError), before=before_log(LOGGER, logging.DEBUG))
+    def getFileMetadata(self,file_id):
+        return self.__service.files().get(supportsAllDrives=True, fileId=file_id,
+                                              fields="name,id,mimeType,size").execute()
+
+    @retry(wait=wait_exponential(multiplier=2, min=3, max=6), stop=stop_after_attempt(5),
+           retry=retry_if_exception_type(HttpError), before=before_log(LOGGER, logging.DEBUG))
+    def getFilesByFolderId(self,folder_id):
+        page_token = None
+        q = f"'{folder_id}' in parents"
+        files = []
+        while True:
+            response = self.__service.files().list(supportsTeamDrives=True,
+                                                   includeTeamDriveItems=True,
+                                                   q=q,
+                                                   spaces='drive',
+                                                   pageSize=200,
+                                                   fields='nextPageToken, files(id, name, mimeType,size)',
+                                                   pageToken=page_token).execute()
+            for file in response.get('files', []):
+                files.append(file)
+            page_token = response.get('nextPageToken', None)
+            if page_token is None:
+                break
+        return files
 
     def clone(self, link):
         self.transferred_size = 0
@@ -304,23 +332,9 @@ class GoogleDriveHelper:
         return msg
 
     def cloneFolder(self, name, local_path, folder_id, parent_id):
-        page_token = None
-        q = f"'{folder_id}' in parents"
-        files = []
         LOGGER.info(f"Syncing: {local_path}")
+        files = self.getFilesByFolderId(folder_id)
         new_id = None
-        while True:
-            response = self.__service.files().list(supportsTeamDrives=True,
-                                                   includeTeamDriveItems=True,
-                                                   q=q,
-                                                   spaces='drive',
-                                                   fields='nextPageToken, files(id, name, mimeType,size)',
-                                                   pageToken=page_token).execute()
-            for file in response.get('files', []):
-                files.append(file)
-            page_token = response.get('nextPageToken', None)
-            if page_token is None:
-                break
         if len(files) == 0:
             return parent_id
         for file in files:
@@ -385,15 +399,27 @@ class GoogleDriveHelper:
         # Get credentials
         credentials = None
         if not USE_SERVICE_ACCOUNTS:
-            crds = OAuth2Credentials.from_json(CRED_JSON)
-            crds.refresh(httplib2.Http())
-            http = crds.authorize(httplib2.Http())
+            if os.path.exists(self.__G_DRIVE_TOKEN_FILE):
+                with open(self.__G_DRIVE_TOKEN_FILE, 'rb') as f:
+                    credentials = pickle.load(f)
+            if credentials is None or not credentials.valid:
+                if credentials and credentials.expired and credentials.refresh_token:
+                    credentials.refresh(Request())
+                else:
+                    flow = InstalledAppFlow.from_client_secrets_file(
+                        'credentials.json', self.__OAUTH_SCOPE)
+                    LOGGER.info(flow)
+                    credentials = flow.run_console(port=0)
+
+                # Save the credentials for the next run
+                with open(self.__G_DRIVE_TOKEN_FILE, 'wb') as token:
+                    pickle.dump(credentials, token)
         else:
             LOGGER.info(f"Authorizing with {SERVICE_ACCOUNT_INDEX}.json service account")
             credentials = service_account.Credentials.from_service_account_file(
                 f'accounts/{SERVICE_ACCOUNT_INDEX}.json',
                 scopes=self.__OAUTH_SCOPE)
-        return build('drive', 'v3', http=http, cache_discovery=False)
+        return build('drive', 'v3', credentials=credentials, cache_discovery=False)
 
     def drive_list(self, fileName):
         msg = ""

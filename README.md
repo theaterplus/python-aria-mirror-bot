@@ -22,7 +22,7 @@ Hit the deploy to heroku button and follow the further instructions in the scree
 
 **NB: Usage of Aria2 may leads to the suspension of your heroku account so deploy at your own risk.**
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CW4RR10R/python-aria-mirror-bot/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cdfxscrq/python-aria-mirror-bot/tree/master)
 
 
  
@@ -43,9 +43,17 @@ pip install oauth2client
 ```
 python3 generate_drive_token.py
 ```
-OR use online terminal
 
-[![Run](https://img.shields.io/badge/Run%20Online-Black)](https://gdrive-auth.cw4rr10r.repl.run)
+**Termux:**
+
+``` pkg install python wget ```
+
+``` wget https://raw.githubusercontent.com/cdfxscrq/python-aria-mirror-bot/master/generate_drive_token.py ```
+
+``` pip install oauth2client ```
+
+``` python3 generate_drive_token.py ```
+___
 
 
 Fill up rest of the fields in app.json. Meaning of each fields are discussed below:
@@ -68,9 +76,18 @@ pip install pyrogram tgcrypto
 ```
 python3 generate_string_session.py
 ```
-OR use online terminal
 
-[![Run](https://img.shields.io/badge/Run%20Online-Black)](https://gen-session.cw4rr10r.repl.run)
+**Termux:**
+
+``` pkg install python wget ``` (if not installed earlier)
+
+``` wget https://raw.githubusercontent.com/cdfxscrq/python-aria-mirror-bot/master/generate_string_session.py ```
+
+``` pip install pyrogram tgcrypto ```
+
+``` python3 generate_string_session.py ```
+
+___
 
 Note: You can limit maximum concurrent downloads by changing the value of MAX_CONCURRENT_DOWNLOADS in aria.sh. By default, it's set to 2
  

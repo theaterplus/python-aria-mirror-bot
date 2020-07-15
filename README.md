@@ -1,3 +1,14 @@
+<h1 align="center">python aria mirror bot</h1> 
+<p align="center">
+<p align="center">
+<a href="https://img.shields.io/github/issues/cdfxscrq/python-aria-mirror-bot"><img alt="issues" src="https://img.shields.io/github/issues/cdfxscrq/python-aria-mirror-bot"/></a>
+<a href="https://img.shields.io/github/license/cdfxscrq/python-aria-mirror-bot"><img alt="license" src="https://img.shields.io/github/license/cdfxscrq/python-aria-mirror-bot"/></a>
+<a href="https://www.python.org/"><img alt="language" src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg"/></a>
+<a href="https://github.com/ellerbrock/open-source-badges/"><img alt="author" src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"/></a>
+</p>
+
+<hr>
+
 # What is this repo about?
 This is a telegram bot writen in python for mirroring files on the internet to our beloved Google Drive.
 

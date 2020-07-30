@@ -1,5 +1,5 @@
 {
-  "name": "Gdrive-Mirror-bot-Heroku",
+  "name": "py-aria-mirror-bot-Heroku",
   "description": "This is a telegram bot writen in python for mirroring files on the internet to our beloved Google Drive.",
   "logo": "https://telegra.ph/file/55cadc1697ae944a7f432.png",
   "keywords": [
@@ -7,9 +7,9 @@
     "mirror",
     "googledrive"
   ],
-  "repository": "https://github.com/CW4RR10R/python-aria-mirror-bot",
+  "repository": "https://github.com/cdfxscrq/python-aria-mirror-bot",
   "success_url": "https://telegram.dog/LeechYourTorrentsBot",
-  "website": "https://github.com/CW4RR10R/python-aria-mirror-bot",  
+  "website": "https://github.com/cdfxscrq/python-aria-mirror-bot",  
   "env": {
     "BOT_TOKEN": {
       "description": "The telegram bot token that you get from @BotFather",
@@ -37,7 +37,7 @@
     },
     "AUTH_CHATS": {
       "description": "chat ids which you wanted to authorize",
-      "value": "608679953",
+      "value": "1001079729",
        "required": false
     },
     "DOWNLOAD_DIR": {

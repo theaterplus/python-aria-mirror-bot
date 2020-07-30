@@ -35,6 +35,9 @@ Hit the deploy to heroku button and follow the further instructions in the scree
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cdfxscrq/python-aria-mirror-bot/tree/master)
 
+## Hosted By GitHub and Deployed by Netlify
+
+[![https://www.netlify.com/img/global/badges/netlify-color-bg.svg](https://www.netlify.com/img/global/badges/netlify-color-bg.svg)](https://www.netlify.com)
 
  
 

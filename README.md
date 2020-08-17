@@ -36,7 +36,7 @@ Hit the deploy to heroku button and follow the further instructions in the scree
 **NB: Usage of Aria2 may leads to the suspension of your heroku account so deploy at your own risk.**
 ```
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cdfxscrq/python-aria-mirror-bot/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cdfxscrq/python-aria-mirror-bot/)
 
 ## Hosted By GitHub and Deployed by Netlify
 

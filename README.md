@@ -63,6 +63,9 @@ python3 generate_drive_token.py
 
 **Termux:**
 
+`online termux`
+https://generatedrivetoken.cdfxscrq.repl.run/
+
 ``` pkg install python wget ```
 
 ``` wget https://raw.githubusercontent.com/cdfxscrq/python-aria-mirror-bot/master/generate_drive_token.py ```
@@ -95,6 +98,9 @@ python3 generate_string_session.py
 ```
 
 **Termux:**
+
+`online termux`
+https://generatestringsession.cdfxscrq.repl.run/
 
 ``` pkg install python wget ``` (if not installed earlier)
 

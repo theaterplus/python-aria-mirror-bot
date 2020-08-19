@@ -63,8 +63,6 @@ python3 generate_drive_token.py
 
 **Termux:**
 
-`online termux`
-https://generatedrivetoken.cdfxscrq.repl.run/
 
 ``` pkg install python wget ```
 
@@ -75,6 +73,9 @@ https://generatedrivetoken.cdfxscrq.repl.run/
 ``` python3 generate_drive_token.py ```
 ___
 
+-OR use my online terminal
+ 
+-[![Run](https://img.shields.io/badge/Run%20Online-Black)](https://generatedrivetoken.cdfxscrq.repl.run)
 
 Fill up rest of the fields in app.json. Meaning of each fields are discussed below:
 - **BOT_TOKEN** : The telegram bot token that you get from @BotFather
@@ -99,9 +100,6 @@ python3 generate_string_session.py
 
 **Termux:**
 
-`online termux`
-https://generatestringsession.cdfxscrq.repl.run/
-
 ``` pkg install python wget ``` (if not installed earlier)
 
 ``` wget https://raw.githubusercontent.com/cdfxscrq/python-aria-mirror-bot/master/generate_string_session.py ```
@@ -111,6 +109,10 @@ https://generatestringsession.cdfxscrq.repl.run/
 ``` python3 generate_string_session.py ```
 
 ___
+
+-OR use my online terminal
+ 
+-[![Run](https://img.shields.io/badge/Run%20Online-Black)](https://generatestringsession.cdfxscrq.repl.run)
 
 Note: You can limit maximum concurrent downloads by changing the value of MAX_CONCURRENT_DOWNLOADS in aria.sh. By default, it's set to 2
  

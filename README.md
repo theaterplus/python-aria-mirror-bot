@@ -33,10 +33,10 @@ This project is heavily inspired from @out386 's telegram bot which is written i
 Hit the deploy to heroku button and follow the further instructions in the screen:
 
 ```
-**NB: Usage of Aria2 may leads to the suspension of your heroku account so deploy at your own risk.**
+NB: Usage of Aria2 may leads to the suspension of your heroku account so deploy at your own risk.
 ```
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cdfxscrq/python-aria-mirror-bot/)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cdfxscrq/python-aria-mirror-bot/tree/master)
 
 ## Hosted By GitHub and Deployed by Netlify
 

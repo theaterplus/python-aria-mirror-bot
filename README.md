@@ -37,11 +37,6 @@ NB: Usage of Aria2 may leads to the suspension of your heroku account so deploy 
 ```
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/cdfxscrq/python-aria-mirror-bot/tree/master)
-
-## Hosted By GitHub and Deployed by Netlify
-
-[![https://www.netlify.com/img/global/badges/netlify-color-bg.svg](https://www.netlify.com/img/global/badges/netlify-color-bg.svg)](https://www.netlify.com)
-
  
 
 ## Getting Google OAuth API credential file
@@ -75,7 +70,7 @@ ___
 
 -OR use my online terminal
  
--[![Run](https://img.shields.io/badge/Run%20Online-Black)](https://generatedrivetoken.cdfxscrq.repl.run)
+[![Run](https://img.shields.io/badge/Run%20Online-Black)](https://generatedrivetoken.cdfxscrq.repl.run)
 
 Fill up rest of the fields in app.json. Meaning of each fields are discussed below:
 - **BOT_TOKEN** : The telegram bot token that you get from @BotFather
@@ -112,7 +107,7 @@ ___
 
 -OR use my online terminal
  
--[![Run](https://img.shields.io/badge/Run%20Online-Black)](https://generatestringsession.cdfxscrq.repl.run)
+[![Run](https://img.shields.io/badge/Run%20Online-Black)](https://generatestringsession.cdfxscrq.repl.run)
 
 Note: You can limit maximum concurrent downloads by changing the value of MAX_CONCURRENT_DOWNLOADS in aria.sh. By default, it's set to 2
  

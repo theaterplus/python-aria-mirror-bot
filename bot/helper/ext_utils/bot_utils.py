@@ -16,7 +16,7 @@ class MirrorStatus:
     STATUS_UPLOADING = "Uploading to G-Drive...📤"
     STATUS_DOWNLOADING = "Downloading to Server...📥"
     STATUS_WAITING = "Queued...⏳"
-    STATUS_FAILED = "Failed. Cleaning download"
+    STATUS_FAILED = "Failed 🚫. Cleaning download"
     STATUS_CANCELLED = "Cancelled ❌"
     STATUS_ARCHIVING = "Archiving...🔐"
 
@@ -98,7 +98,7 @@ def get_readable_message():
                 if hasattr(download, 'is_torrent'):
                     msg += f"\n<b>Peers 🛑 :</b> {download.download().connections} " \
                            f"| <b>Seeders ♻ :</b> {download.download().num_seeders}"
-                msg += f"\nGID: <code>{download.gid()}</code>"
+                msg += f"\n<code>/cancel2 {download.gid()}</code>"
             msg += "\n\n"
         return msg
 
